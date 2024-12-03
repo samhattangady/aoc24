@@ -31,7 +31,6 @@
       (concatenate `list (reverse past) (cdr vals))
       (index-removed-rec (cdr vals) index (cons (car vals) past) (+ current 1))))
   (index-removed-rec vals index `() 0)
-  
   )
 
 (defun sign-matches (v1 v2 sign)
