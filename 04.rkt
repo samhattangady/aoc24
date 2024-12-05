@@ -18,8 +18,7 @@
     [else (list-ref (list-ref grid (car pos)) (cadr pos))]))
 
 (define (add-pos pos diff)
-  (define added (list (+ (car pos) (car diff)) (+ (cadr pos) (cadr diff))))
-  added)
+  (list (+ (car pos) (car diff)) (+ (cadr pos) (cadr diff))))
 
 (define (++ val)
   (+ val 1))
@@ -32,7 +31,6 @@
     [(equal? (get-char grid pos) (list-ref xmas index)) (check-xmas grid (add-pos pos diff) diff (++ index))]
     [else 0]))
 
-
 (define directions `((0 1) (1 1) (1 0) (1 -1) (0 -1) (-1 -1) (-1 0) (-1 1)))
 (define (check-all grid pos dir-index total)
   (cond
@@ -41,11 +39,8 @@
       (check-all 
         grid 
         pos 
-        (+ dir-index 1) 
-        (+ 
-          total 
-          (check-xmas grid pos (list-ref directions dir-index) 0)
-        )) ]))
+        (++ dir-index) 
+        (+ total (check-xmas grid pos (list-ref directions dir-index) 0)))]))
 
 (define (is-mas grid pos diffs)
   (define (is-ms c1 c2)
@@ -72,8 +67,7 @@
     (cond
       [(null? pos) total]
       [else (iter grid (next-pos grid pos) (+ total (check-all grid pos 0 0)))]))
-  (iter grid `(0 0) 0)
-  )
+  (iter grid `(0 0) 0))
 
 (define (find-crosses grid)
   (define (iter grid pos total)
