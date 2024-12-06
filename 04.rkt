@@ -76,4 +76,4 @@
       [else (iter grid (next-pos grid pos) (+ total (check-cross grid pos))) ]))
   (iter grid `(0 0) 0))
 
-(print (find-crosses (get-grid "04.txt")) )
+(print (find-crosses (get-grid "data/04.txt")) )
