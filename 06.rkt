@@ -137,6 +137,8 @@
 (define (solve02 patrol-map)
   (define rows (treelist-length patrol-map))
   (define cols (treelist-length (treelist-first patrol-map)))
+  ;; technically we need not loop through every position. we could just get
+  ;; all the visited in the original run and then just check those.
   (for*/sum ([row (build-list rows values)]
              [col (build-list cols values)]
              #:unless (or (equal? `barrier (get-atom patrol-map (list row col)))
@@ -145,13 +147,11 @@
       [else 
         (define new-map (update-map patrol-map (list (list `barrier (list row col)))))
         (define is-loop (cadr (run-sim new-map)))
-         (if is-loop (println (list row col`loop)) (println (list row col)))
+        ;; (if is-loop (println (list row col`loop)) (println (list row col)))
         (if is-loop 1 0)
       ] )))
 
-
-
-(define file (open-input-file "data/06.txt"))
+(define file (open-input-file "data/06_sample.txt"))
 (define patrol-map (parse-map file))
 (print (solve02 patrol-map))
 
